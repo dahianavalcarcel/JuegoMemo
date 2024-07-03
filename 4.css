@@ -1,0 +1,106 @@
+body {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Para centrar verticalmente */
+    margin: 0;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%; /* Asegura que main ocupe el ancho completo */
+}
+
+.mesa {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem; /* Espacio entre las tarjetas */
+    padding: 1rem; /* Espacio alrededor del contenedor */
+    max-width: 60vw; /* Limitar el ancho de la mesa */
+    max-height: 80vh; /* Limitar la altura de la mesa */
+    overflow: auto; /* Permitir scroll si es necesario */
+    border: 2px solid transparent; /* Borde transparente para ver el tamaño del contenedor */
+}
+
+.tarjeta {
+    width: 6rem;
+    height: 6rem;
+    margin: 0.5rem;
+    border-radius: 0.3em;
+    background-image: var(--gradient, linear-gradient(135deg, #f0f, #0ff)); /* Degradado por defecto */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25), 4px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: 0.3s;
+    cursor: pointer;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.tarjeta__contenido {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: rotateY(-180deg);
+    backface-visibility: hidden;
+    background-color: white;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25), 4px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    padding-top: 0.4rem;
+}
+
+.tarjeta__contenido::selection {
+    background: transparent;
+}
+
+.tarjeta.descubierta {
+    transform: rotateY(-180deg);
+}
+
+
+
+  .tarjeta.acertada {
+    opacity: 0;
+  }
+  
+  /* Definición de la animación de zoom */
+@keyframes zoomOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Estilo para las tarjetas acertadas */
+.tarjeta.acertada {
+    animation: zoomOut 0.3s ease forwards;
+}
+
+/* Estilo para las tarjetas con error (vibración) */
+@keyframes vibrar {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+    100% { transform: translateX(0); }
+}
+
+.tarjeta.error {
+    animation: vibrar 0.5s ease-in-out;
+}
